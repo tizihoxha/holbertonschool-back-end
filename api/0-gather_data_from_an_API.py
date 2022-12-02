@@ -1,33 +1,27 @@
 #!/usr/bin/python3
-"""returns information about his/her TODO list progress"""
-import urllib.request
-import json
-import sys
+"""
+Module 0-gather_data_from_an_API
+"""
+import requests
+from sys import argv
 
 
 if __name__ == '__main__':
-    uId = int(sys.argv[1])
-    toDoList = []
-    compTask = 0
-    tasks = 0
-    with urllib.request.urlopen('https://jsonplaceholder'
-                                '.typicode.com/users') as response:
-        users = json.loads(response.read().decode())
-        for user in users:
-            if user['id'] == uId:
-                userName = user['name']
 
-    with urllib.request.urlopen('https://jsonplaceholder'
-                                '.typicode.com/todos') as response:
-        jsonDict = json.loads(response.read().decode())
-        for line in jsonDict:
-            if line['userId'] == uId:
-                if line['completed'] is True:
-                    string = ("\t " + line['title'])
-                    toDoList.append(string)
-                    compTask += 1
-                tasks += 1
+    resp = requests.get(
+        'https://jsonplaceholder.typicode.com/users/{}/todos'.format(argv[1]))
+    completed = []
+    for todo_item in resp.json():
+        if todo_item['completed'] is True:
+            completed.append(todo_item['title'])
+    total_tasks = len(resp.json())
+    completed_tasks = len(completed)
+    resp = requests.get(
+        'https://jsonplaceholder.typicode.com/users/{}'.format(argv[1]))
+    user_name = resp.json().get('name')
 
-    print(f"Employee {userName} is done with tasks({compTask}/{tasks}):")
-    for att in toDoList:
-        print(att)
+    print('Employee {} is done with tasks({}/{}):'.format(user_name,
+                                                          completed_tasks,
+                                                          total_tasks))
+    for task in completed:
+        print('\t {}'.format(task))
