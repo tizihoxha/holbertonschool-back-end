@@ -18,8 +18,7 @@ if __name__ == '__main__':
     completed_tasks = len(completed)
     resp = requests.get(
         'https://jsonplaceholder.typicode.com/users/{}'.format(argv[1]))
-    user_name = resp.json().get('name')
-    
+    user_name = resp.json().get('name') 
     print('Employee {} is done with tasks({}/{}):'.format(user_name,
                                                           completed_tasks,
                                                           total_tasks))
