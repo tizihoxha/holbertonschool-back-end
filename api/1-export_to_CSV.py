@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-"""extend your Python script to export data in the CSV format"""
-
+"""
+Module 1-export_to_csv
+"""
 import csv
 import requests
 from sys import argv
@@ -21,4 +22,4 @@ if __name__ == '__main__':
             writer.writerow([todo_item['userId'],
                              user_name,
                              todo_item['completed'],
-                             todo_item['title']])i
+                             todo_item['title']])
