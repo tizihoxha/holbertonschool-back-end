@@ -19,10 +19,9 @@ if __name__ == '__main__':
     resp = requests.get(
         'https://jsonplaceholder.typicode.com/users/{}'.format(argv[1]))
     user_name = resp.json().get('name')
-
+    
     print('Employee {} is done with tasks({}/{}):'.format(user_name,
                                                           completed_tasks,
                                                           total_tasks))
     for task in completed:
         print('\t {}'.format(task))
-
