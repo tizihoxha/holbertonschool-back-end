@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-Module 1-export_to_csv
-"""
+"""extend your Python script to export data in the CSV format"""
 import csv
 import requests
 from sys import argv
