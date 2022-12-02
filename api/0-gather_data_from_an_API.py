@@ -25,3 +25,4 @@ if __name__ == '__main__':
                                                           total_tasks))
     for task in completed:
         print('\t {}'.format(task))
+
