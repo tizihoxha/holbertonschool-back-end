@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-"""
-Module 0-gather_data_from_an_API
-"""
+"""Python script that, using this REST API,for a given employee ID,
+returns information about his/her TODO list progress"""
+
 import requests
 from sys import argv
 
@@ -18,7 +18,7 @@ if __name__ == '__main__':
     completed_tasks = len(completed)
     resp = requests.get(
         'https://jsonplaceholder.typicode.com/users/{}'.format(argv[1]))
-    user_name = resp.json().get('name') 
+    user_name = resp.json().get('name')
     print('Employee {} is done with tasks({}/{}):'.format(user_name,
                                                           completed_tasks,
                                                           total_tasks))
