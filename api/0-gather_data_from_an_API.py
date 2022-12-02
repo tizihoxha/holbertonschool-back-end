@@ -8,7 +8,6 @@ if __name__ == '__main__':
     rq = requests.get('https://jsonplaceholder.typicode.com/users/{}'.
                       format(argv[1]))
     rqname = rq.json().get('name')
-
     rq = requests.get('https://jsonplaceholder.typicode.com/todos?userId={}'.
                       format(argv[1]))
     rqdata = rq.json()
