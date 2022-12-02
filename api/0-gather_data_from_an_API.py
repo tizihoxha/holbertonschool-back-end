@@ -1,33 +1,24 @@
 #!/usr/bin/python3
-"""Returns info about his/her TODO list progress by giving employee ID"""
+''' *** *** '''
 
-from requests import get
-from sys import argv
+if __name__ == '__main__':
+    import requests
+    from sys import argv
 
+    rq = requests.get('https://jsonplaceholder.typicode.com/users/{}'.
+                      format(argv[1]))
+    rqname = rq.json().get('name')
 
-if __name__ == "__main__":
-    response = get('https://jsonplaceholder.typicode.com/todos/')
-    data = response.json()
-    completed = 0
-    total = 0
-    tasks = []
-    response2 = get('https://jsonplaceholder.typicode.com/users/')
-    data2 = response2.json()
+    rq = requests.get('https://jsonplaceholder.typicode.com/todos?userId={}'.
+                      format(argv[1]))
+    rqdata = rq.json()
+    done = total = 0
+    for task in rqdata:
+        total += 1
+        if task.get('completed'):
+            done += 1
 
-    for i in data2:
-        if i.get('id') == int(argv[1]):
-            employee = i.get('name')
-
-    for i in data:
-        if i.get('userId') == int(argv[1]):
-            total += 1
-
-            if i.get('completed') is True:
-                completed += 1
-                tasks.append(i.get('title'))
-
-    print("Employee {} is done with tasks({}/{}):".format(employee,
-                                                          completed, total))
-
-    for i in tasks:
-        print("\t {}".format(i))
+    print('Employee {} is done with tasks({}/{}):'.format(rqname, done, total))
+    for task in rqdata:
+        if task.get('completed'):
+            print('\t {}'.format(task.get('title')))
